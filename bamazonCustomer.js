@@ -59,28 +59,43 @@ function displayPrompt() {
         }
     ]).then(function (response) {
 
-        var isThere = checkQuantity(response.itemId, response.howMany);
-        if (isThere) {
-            //complete transaction
-        } else {
-            console.log("Insufficent Quantity");
-        }
-
+        checkQuantity(response.itemId, response.howMany);
     })
 }
 
+//this function checks quanity, if enough, totals of price and passes it over to complete transaction function
 function checkQuantity(productNum, howMany) {
     //create a query that will grab the quantity of the item and check
-    var query = "SELECT stock_quantity FROM products WHERE ?";
+    var query = "SELECT stock_quantity, price FROM products WHERE ?";
     connection.query(query, { item_id: productNum }, function (err, response) {
         if (err) {
             throw err;
         }
-        //a temp variable to hold the current quantity
-        var temp = response[0].stock_quantity;
-        if ((temp - howMany) < 0) {
-            return false;
+        //a new variable to hold the updated quantity
+        var newStock = response[0].stock_quantity;
+        newStock -= howMany;
+        if (newStock < 0) {
+            console.log('Insufficient quantity');
+        } else {
+            var userPrice = response[0].price;
+            userPrice *= howMany;
+            completeTransaction(userPrice, newStock, productNum);
         }
-        return true;
+
     })
+}
+function completeTransaction(userPrice, updatedStock, productNum) {
+    var query = "UPDATE products SET ? WHERE ?";
+    connection.query(query, [{ stock_quantity: updatedStock }, { item_id: productNum }], function (err) {
+        if (err) {
+            throw err;
+        }
+        console.log("\nYour total price is: $" + userPrice);
+        console.log("\nYour order is being processed, thank you for your purchase.\n");
+        connection.end();
+        return 0;
+    })
+
+
+
 }
