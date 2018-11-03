@@ -35,12 +35,15 @@ function displayAllItems() {
 
         //a for loop that will display all the items
         console.log("LOADING ITEMS..../");
-        console.log("-------------------------");
+
         for (var i = 0; i < response.length; i++) {
-            console.log("Product Number: " + response[i].item_id + " || " + "Product Name: " + response[i].product_name + " || " + "Price: " + response[i].price);
+            console.log("-------------------------------");
+            console.log("Product Number: " + response[i].item_id);
+            console.log("Product Name: " + response[i].product_name);
+            console.log("price: $" + response[i].price);
+            //after showing all data, ask the user what they want to do with the info
+
         }
-        console.log("\n\n");
-        //after showing all data, ask the user what they want to do with the info
         displayPrompt();
     })
 }
@@ -76,6 +79,8 @@ function checkQuantity(productNum, howMany) {
         newStock -= howMany;
         if (newStock < 0) {
             console.log('Insufficient quantity');
+            connection.end();
+            return 1;
         } else {
             var userPrice = response[0].price;
             userPrice *= howMany;
