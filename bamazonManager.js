@@ -43,7 +43,7 @@ function displayManagerMenu() {
             addInventory();
         }
         if (res.userChoice == "Add New Product") {
-
+            addNewProduct();
         }
         if (res.userChoice == "Exit") {
             connection.end();
@@ -147,4 +147,45 @@ function updateStock(productName, newStock) {
         })
     })
 
+}
+function addNewProduct() {
+    console.log("\nAdd new product mode activated...\n");
+    console.log("--------------------");
+    inquirer.prompt([
+        {
+            type: "input",
+            message: "What is the product number?",
+            name: "productNumber"
+        },
+        {
+            type: "input",
+            message: "What is the product name?",
+            name: "productName"
+        },
+        {
+            type: "input",
+            message: "What department does it belong too?",
+            name: "departmentName"
+        },
+        {
+            type: "input",
+            message: "What is the price of the item?",
+            name: "productPrice"
+        },
+        {
+            type: "input",
+            message: "How much stock of the item is in inventory?",
+            name: "inventoryAmount"
+        }
+
+    ]).then(function (response) {
+        var query = "INSERT INTO products SET ?";
+        connection.query(query, { item_id: response.productNumber, product_name: response.productName, department_name: response.departmentName, price: response.productPrice, stock_quantity: response.inventoryAmount }, function (err) {
+            if (err) {
+                throw err;
+            }
+            console.log("New product added Successfully...");
+            displayManagerMenu();
+        })
+    })
 }
