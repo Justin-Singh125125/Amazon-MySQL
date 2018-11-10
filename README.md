@@ -1,4 +1,4 @@
-This application requires node js to be installed on your computer.
+#AMAZON-MySQL
 -------------------------------------------------------------------
 **RUN NPM INSTALL ON FIRST INSTALL TO GET ALL NPM PACKAGES**
 In this application I use a MySQL database to act as an Amazon Marketplace.
