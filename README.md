@@ -9,7 +9,7 @@ This application simulates Amazon's online marketplace by using a MySQL database
 * Used various NPM packages such as **inquirer** and **mysql**. <br>
 
 ## Inside the downloadable folder you will find two applications:
-* One For Customers <br>
+* One for Customers <br>
       This link provides a Demo of a Customer buying a product, therefore decreasing inventory in the MySQL database.
 https://drive.google.com/file/d/1Nerzb_km_ko-2pD-18OCdR4kiQz3E-6Y/view
 
