@@ -1,6 +1,6 @@
 
 # Amazon-MySQL
-This application simulates Amazon's online marketplace by using a MySQL database along with Node js.<br><br>
+This application simulates Amazon's online marketplace by using a MySQL database along with Node js.<br>
 
 ## Application Development
 * Created two seperate apps that will update the MySQL database in multiple ways.<br>
